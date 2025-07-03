@@ -1,4 +1,4 @@
-package com.bluteam.credit;
+package com.bluteam.personal;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
