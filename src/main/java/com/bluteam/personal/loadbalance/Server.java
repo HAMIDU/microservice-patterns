@@ -1,4 +1,4 @@
-package com.bluteam.personal.loadbalancer;
+package com.bluteam.personal.loadbalance;
 
 
 public class Server {

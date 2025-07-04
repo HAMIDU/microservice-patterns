@@ -1,15 +1,15 @@
-package com.bluteam.personal.loadbalancer;
+package com.bluteam.personal.loadbalance;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class LoadBalance {
+public class LoadBalancer {
 
     List<Server> servers = new CopyOnWriteArrayList<>();
     AtomicInteger currentIndex = new AtomicInteger();
 
-    public LoadBalance() {
+    public LoadBalancer() {
         currentIndex.set(0);
     }
 
