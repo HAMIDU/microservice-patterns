@@ -6,6 +6,7 @@ import com.bluteam.personal.cache.CacheEntry;
 import com.bluteam.personal.cache.CacheManager;
 import com.bluteam.personal.cache.Student;
 import com.bluteam.personal.loadbalance.LoadBalancer;
+import com.bluteam.personal.loadbalance.Server;
 import com.bluteam.personal.ratelimit.RateLimiter;
 
 import java.util.concurrent.ExecutorService;
@@ -16,8 +17,8 @@ import java.util.concurrent.Executors;
  */
 public class App {
     public static void main(String[] args) throws InterruptedException {
-        LoadBalancer loadBalancer = new LoadBalancer();
-        /*System.out.println("=====Load Balancer Started===");
+        /*LoadBalancer loadBalancer = new LoadBalancer();
+        System.out.println("=====Load Balancer Started===");
 
         Server serverA = new Server(1, "A", "127.0.0.1", 90);
         Server serverB = new Server(1, "B", "127.0.0.2", 90);
@@ -32,6 +33,24 @@ public class App {
             System.out.println("Request Number " + i + " took the server " + server);
         }
 */
+
+        LoadBalancer loadBalancerWithWeight = new LoadBalancer();
+        System.out.println("=====Load Balancer based on weight Started===");
+
+        Server serverA = new Server(1, "A", "127.0.0.1", 90, 3);
+        Server serverB = new Server(1, "B", "127.0.0.2", 90, 2);
+        Server serverC = new Server(1, "C", "127.0.0.3", 90, 6);
+        loadBalancerWithWeight.addServerWithWeight(serverA);
+        loadBalancerWithWeight.addServerWithWeight(serverB);
+        loadBalancerWithWeight.addServerWithWeight(serverC);
+        loadBalancerWithWeight.duplicatedBasedOnWeight();
+
+
+        for (int i = 0; i < 30; i++) {
+            Server server = loadBalancerWithWeight.chooseServerBasedOnWeight();
+            System.out.println("Request Number " + i + " took the server based on weight " + server);
+        }
+
        /* System.out.println("=====API Gateway Started===");
         Gateway gateway = new Gateway();
 
@@ -77,7 +96,7 @@ public class App {
         }
         executor.shutdown();*/
 
-
+/*
         System.out.println("=====Cache Aside Strategy Started===");
         Student[] students = {new Student(String.valueOf(1), "student01")
             , new Student(String.valueOf(2), "student02")
@@ -111,6 +130,6 @@ public class App {
                 });
                 Thread.sleep(300);
             }
-        }
+        }*/
     }
 }
